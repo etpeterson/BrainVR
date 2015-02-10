@@ -33,14 +33,24 @@ else:
 
 #load a video
 cap=cv2.VideoCapture(vid) #sys.argv[1]
+surf=cv2.SURF(900) #create a SURF object
 
 while(cap.isOpened() and waitkey!=ord('q')):
     #capture frame
-    ret, frame = cap.read()
+    (ret, frame) = cap.read()
+    
+    #SURF processing
+    (kp, des) = surf.detectAndCompute(frame,None)
+    #print len(kp)
+    #print kp[0]
+    #kp.
+    frame_kp = cv2.drawKeypoints(frame,kp,None,(255,0,0),4)
     
     #display the movie
-    cv2.imshow('frame',frame)
+    cv2.imshow('frame',frame_kp)
     waitkey=cv2.waitKey(1)
+    
+    
 
 
 cap.release()
